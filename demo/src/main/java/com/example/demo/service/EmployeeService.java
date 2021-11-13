@@ -3,6 +3,8 @@ package com.example.demo.service;
 import java.util.List;
 import java.util.UUID;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,7 @@ import com.example.demo.model.Employee;
 import com.example.demo.repository.EmployeeRepo;
 
 @Service
+@Transactional
 public class EmployeeService {
 
 	@Autowired
@@ -20,6 +23,11 @@ public class EmployeeService {
 
 		employee.setEmployeeCode(UUID.randomUUID().toString());
 		return employeeRepo.save(employee);
+	}
+
+	public void deleteEmployee(Long id) {
+		employeeRepo.deleteById(id);
+
 	}
 
 	public Employee updateEmployee(Employee employee) {
